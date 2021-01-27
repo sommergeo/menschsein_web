@@ -1,2 +1,2 @@
 # menschsein_web
- Web Map for the exhibition "Menschsein" at the Archäologisches Museum Frankfurt: https://www.archaeologisches-museum-frankfurt.de/de/ausstellungen/menschsein
+ Web Map for the exhibition [Menschsein](https://www.archaeologisches-museum-frankfurt.de/de/ausstellungen/menschsein) at the Archäologisches Museum Frankfurt.
