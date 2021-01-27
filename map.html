@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+ <meta name="mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <title>ROCEEH's Template Map</title>
+ <link rel="stylesheet" href="leaflet/leaflet.css" />
+ <script src="leaflet/leaflet.js"></script>
+ <script src="data/geojson/custom.js"></script>
+ 
+ <style>
+  html, body {
+ 	 width: 100%;
+     height: 100%;
+	 padding: 0;
+	 margin: 0;
+  }
+ </style>	
+</head>
+<body>
+ <!-- the div element containing the map -->
+ <div id="mapid" style="width: 100%; height: 100%; padding: 0; margin: 0;"></div>
+
+ <script>
+
+  // Leaflet map
+  var mymap = L.map('mapid', {
+   minZoom: 3,
+   maxZoom: 6,
+   maxBounds: L.latLngBounds(
+    L.latLng(-70, -100), //southwest
+    L.latLng(80, 179)), //northeast
+   attribution: 'Background by <a href="https://www.naturalearthdata.com/">Natural Earth</a>'
+  }).setView([25, 70], 3);
+
+  // Basemap
+  var basemap_tile = L.tileLayer('data/NE2_LR_LC_SR_W_DR/{z}/{x}/{y}.png', {
+   minZoom: 0,
+   maxZoom: 6,
+   tms: false,
+   attribution: 'Background by <a href="https://www.naturalearthdata.com"/>Natural Earth</a>'
+  }).addTo(mymap);
+  
+  // Vector data
+  // Styling  
+  var redSymbol = {
+   radius: 10,
+   fillColor: "#b5625c",
+   color: "#3d3d38",
+   weight: 3,
+   opacity: 1,
+   fillOpacity: 1};
+  
+  // Marker
+  var m_hadar = L.circleMarker([11.1, 40.58333333], redSymbol).addTo(mymap);
+  
+ </script>
+
+</body>
+</html>
