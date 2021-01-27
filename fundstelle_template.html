@@ -32,16 +32,16 @@
    maxZoom: 6,
    maxBounds: L.latLngBounds(
     L.latLng(-50, -120), //southwest
-    L.latLng(80, 250)), //northeast
-   attribution: 'Background by <a href="https://www.naturalearthdata.com/">Natural Earth</a>'
+    L.latLng(80, 250)) //northeast
   }).setView([25, 70], 3);
+
 
   // Basemap
   var basemap_tile = L.tileLayer('data/NE2_LR_LC_SR_W_DR/{z}/{x}/{y}.png', {
    minZoom: 0,
    maxZoom: 6,
    tms: false,
-   attribution: 'Background by <a href="https://www.naturalearthdata.com"/>Natural Earth</a>'
+   attribution: 'Background: <a href="http://www.shadedrelief.com/natural2/index.html"/>Natural Earth</a> by <a href="http://shadedrelief.com/"/>Tom Patterson</a>'
   }).addTo(mymap);
   
   // Vector data
