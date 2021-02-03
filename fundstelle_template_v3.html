@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+ <meta name="mobile-web-app-capable" content="yes">
+ <meta name="apple-mobile-web-app-capable" content="yes">
+ <title>ROCEEH's Template Map</title>
+ <!-- Leaflet -->
+ <link rel="stylesheet" href="leaflet/leaflet.css" />
+ <script src="leaflet/leaflet.js"></script>
+ <script src="data/geojson/custom.js"></script>
+ <!-- Markercluster -->
+ <link rel="stylesheet" href="leaflet/MarkerCluster.css">
+ <link rel="stylesheet" href="leaflet/MarkerCluster.Default.css">
+ <script src="leaflet/leaflet.markercluster.js"></script>
+ 
+ <style>
+  html, body {
+ 	 width: 100%;
+     height: 100%;
+	 padding: 0;
+	 margin: 0;
+  }
+ </style>	
+</head>
+<body>
+ <!-- the div element containing the map -->
+ <div id="mapid" style="width: 100%; height: 100%; padding: 0; margin: 0;"></div>
+
+ <script>
+
+  // Leaflet map
+  var mymap = L.map('mapid', {
+   minZoom: 3,
+   maxZoom: 6,
+   maxBounds: L.latLngBounds(
+    L.latLng(-50, -120), //southwest
+    L.latLng(80, 250)) //northeast
+  }).setView([25, 70], 3);
+
+
+  // Basemap
+  var basemap_tile = L.tileLayer('data/NE2_LR_LC_SR_W_DR/{z}/{x}/{y}.png', {
+   minZoom: 0,
+   maxZoom: 6,
+   tms: false,
+   attribution: 'Background: <a href="http://www.shadedrelief.com/natural2/index.html"/>Natural Earth</a> by <a href="http://shadedrelief.com/"/>Tom Patterson</a>'
+  }).addTo(mymap);
+  
+
+
+
+  // Inactive marker (non-clickable)
+  // Styling 
+  var greySymbol = {
+   radius: 8,
+   fillColor: "#eae8e3",
+   color: "#3d3d38",
+   weight: 1.5,
+   opacity: 1,
+   fillOpacity: 1};
+   
+  // Markers
+  var m_koobi_fora = L.circleMarker([4.3, 36.31666667], greySymbol).addTo(mymap);
+  var m_taung = L.circleMarker([-27.619867, 24.633987], greySymbol).addTo(mymap);
+  
+  
+  
+  
+  // Active Marker (clickable)
+  // Styling  
+  var redSymbol = {
+   radius: 8,
+   fillColor: "#b5625c",
+   color: "#3d3d38",
+   weight: 1.5,
+   opacity: 1,
+   fillOpacity: 1,
+   pane: 'pane_fundstellen'};
+  
+  // On-click function
+  function markerClick(){
+   window.open('https://www.archaeologisches-museum-frankfurt.de/de/','_self')
+  }
+ 
+  // Map Pane
+  mymap.createPane('pane_fundstellen');
+  mymap.getPane('pane_fundstellen').style['mix-blend-mode'] = 'normal';
+ 
+  // Marker
+  var m_hadar = L.circleMarker([11.1, 40.58333333], redSymbol)
+  .bindTooltip("Hadar", {permanent: true, interactive: true}) //permanent: immer sichtbar da touchscreen; interactive: tooltipe klickbar wie Marker
+  .on('click', markerClick);	
+ 
+  var m_gona = L.circleMarker([11.10706667, 40.5193], redSymbol)
+  .bindTooltip("Gona", {permanent: true, interactive: true}) //permanent: immer sichtbar da touchscreen; interactive: tooltipe klickbar wie Marker
+  .on('click', markerClick);
+  
+  var m_dikika = L.circleMarker([11.05, 40.6], redSymbol)
+  .bindTooltip("Dikika", {permanent: true, interactive: true}) //permanent: immer sichtbar da touchscreen; interactive: tooltipe klickbar wie Marker
+  .on('click', markerClick);
+  
+  // Cluster
+  var cluster_fundstellen = new L.MarkerClusterGroup({showCoverageOnHover: false,
+   spiderfyDistanceMultiplier: 2,
+   zoomToBoundsOnClick: true});
+  cluster_fundstellen.addLayer(m_hadar).addLayer(m_gona).addLayer(m_dikika);
+  cluster_fundstellen.on('clusterclick', function (a) {a.layer.spiderfy();});
+  cluster_fundstellen.addTo(mymap);
+  
+ </script>
+
+</body>
+</html>
